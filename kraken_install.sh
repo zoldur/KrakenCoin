@@ -35,7 +35,7 @@ function compile_node() {
 function deploy_binaries() {
   cd $TMP_FOLDER
   wget -q $COIN_TGZ >/dev/null 2>&1
-  gunzip Kraken.gz >/dev/null 2>&1
+  gunzip Krakend.gz >/dev/null 2>&1
   chmod +x Krakend >/dev/null 2>&1
   cp Krakend /usr/local/bin/ >/dev/null 2>&1
 }
