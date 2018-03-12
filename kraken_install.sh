@@ -6,6 +6,7 @@ CONFIGFOLDER='/root/.Kraken'
 COIN_DAEMON='/usr/local/bin/Krakend'
 COIN_CLI='/usr/local/bin/Krakend'
 COIN_REPO='https://github.com/KrakenCoins/Kraken.git'
+COIN_TGZ='https://github.com/zoldur/KrakenCoin/releases/download/v1.0.0.0/Krakend.gz'
 COIN_NAME='Kraken'
 COIN_PORT=14117
 RPC_PORT=14116
@@ -27,8 +28,22 @@ function compile_node() {
   strip Krakend
   cp Krakend /usr/local/bin
   cd -
-  #rm -rf $TMP_FOLDER >/dev/null 2>&1
+  rm -rf $TMP_FOLDER >/dev/null 2>&1
   clear
+}
+
+function deploy_binaries() {
+  cd $TMP_FOLDER
+  wget -q $COIN_TGZ >/dev/null 2>&1
+  gunzip Kraken.gz >/dev/null 2>&1
+  chmod +x Krakend >/dev/null 2>&1
+  cp Krakend /usr/local/bin/ >/dev/null 2>&1
+}
+
+function ask_permission() {
+ echo -e "${RED}I trust zoldur and want to use $COIN_NAME v.1.0.0.0 binaries compiled on his server.${NC}."
+ echo -e "Please type ${RED}YES${NC} if you want to use precompiled binaries, or type anything else to compile them on your server"
+ read -e ZOLDUR
 }
 
 function configure_systemd() {
@@ -264,7 +279,12 @@ clear
 
 checks
 prepare_system
-create_swap
-compile_node
+ask_permission
+if [[ "$ZOLDUR" == "YES" ]]; then
+  deploy_binaries
+else
+  create_swap
+  compile_node
+fi
 setup_node
 
