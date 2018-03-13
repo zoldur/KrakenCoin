@@ -4,7 +4,7 @@ Shell script to install n [Kraken Masternode](http://krakencoin.eu/) on a Linux 
 
 ## Installation
 ```
-wget -q https://raw.githubusercontent.com/zoldur/KrakeCoin/master/kraken_install.sh  
+wget -q https://raw.githubusercontent.com/zoldur/KrakenCoin/master/kraken_install.sh  
 bash kraken_install.sh
 ```
 ***
